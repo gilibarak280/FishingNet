@@ -26,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
         by findViewByID method
          */
 
-        toolbar = (Toolbar) findViewById(R.id.tool_bar);
+        //toolbar = (Toolbar) findViewById(R.id.tool_bar);
         tabLayout = (TabLayout) findViewById(R.id.tabs);
         viewPager = (ViewPager) findViewById(R.id.viewpager);
 
@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
          */
         viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
         viewPager.setAdapter(viewPagerAdapter);
-        setSupportActionBar(toolbar);
+        //setSupportActionBar(toolbar);
 
         /*
         TabLayout.newTab() method creates a tab view, Now a Tab view is not the view
