@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "410352379591",
+    "firebase_url": "https://fishingnet-dd809.firebaseio.com",
+    "project_id": "fishingnet-dd809",
+    "storage_bucket": "fishingnet-dd809.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:410352379591:android:810bb1943fc30423",
+        "android_client_info": {
+          "package_name": "com.example.gili.fishingnet"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "410352379591-rkpiplfchbm7bh97n214pmaiq5bmi3l1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyARBJgx7GqsHgRnj4se5xei1hDzpiIHqYw"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
