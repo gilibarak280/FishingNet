@@ -12,6 +12,7 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter {
     public ViewPagerAdapter(FragmentManager fm) {
         super(fm);
     }
+    private Boolean isGoogleApiClientCreated = false;
 
     @Override
     public Fragment getItem(int position) {

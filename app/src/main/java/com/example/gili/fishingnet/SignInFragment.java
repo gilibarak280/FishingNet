@@ -32,30 +32,29 @@ public class SignInFragment extends Fragment implements GoogleApiClient.OnConnec
     GoogleApiClient googleApiClient;
     private static final String TAG = "SignInActivity";
     private static final int RC_SIGN_IN = 9001;
-    private GoogleSignInAccount userAccount;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         RelativeLayout signInLayout = (RelativeLayout) inflater.inflate(R.layout.sign_in, container, false);
-        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestEmail()
-                .build();
-        googleApiClient = new GoogleApiClient.Builder(getContext())
-                .enableAutoManage(getActivity()/*fregment activity*/ ,this/**/)
-                .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
-                .build();
-        statusTextView= (TextView) signInLayout.findViewById(R.id.status_textview);
-        signInButton= (SignInButton) signInLayout.findViewById(R.id.sign_in_button);
+
+        statusTextView = (TextView) signInLayout.findViewById(R.id.status_textview);
+        signInButton = (SignInButton) signInLayout.findViewById(R.id.sign_in_button);
         signInButton.setOnClickListener(this);
 
         signOutButton = (Button) signInLayout.findViewById(R.id.signOutButton);
         signOutButton.setOnClickListener(this);
+
+        googleApiClient = UserAccount.getGoogleApiClient();
+        GoogleSignInAccount lastUser = UserAccount.getUserAccount();
+        if(lastUser!=null){
+            statusTextView.setText("Hey "+lastUser.getDisplayName());
+        }
+
         return signInLayout;
     }
 
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
-
     }
 
     @Override
@@ -71,6 +70,16 @@ public class SignInFragment extends Fragment implements GoogleApiClient.OnConnec
     }
 
     private void signIn(){
+        if(googleApiClient == null){
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestEmail()
+                .build();
+        googleApiClient = new GoogleApiClient.Builder(getContext())
+                .enableAutoManage(getActivity()/*fregment activity*/, this/**/)
+                .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
+                .build();
+            UserAccount.setGoogleApiClient(googleApiClient);
+        }
         Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(googleApiClient);
         startActivityForResult(signInIntent,RC_SIGN_IN);
     }
@@ -99,7 +108,8 @@ public class SignInFragment extends Fragment implements GoogleApiClient.OnConnec
         Auth.GoogleSignInApi.signOut(googleApiClient).setResultCallback(new ResultCallback<Status>() {
             @Override
             public void onResult(@NonNull Status status) {
-                statusTextView.setText("by by");
+                UserAccount.setUserAccount(null);
+                statusTextView.setText("bye bye");
             }
         });
     }

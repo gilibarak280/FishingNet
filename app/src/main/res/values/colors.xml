@@ -3,4 +3,6 @@
     <color name="PrimaryColor">#2196F3</color>
     <color name="PrimaryDarkColor">#1976D2</color>
     <color name="indicator">#ecd95a</color>
+    <color name="accent">#ffea00</color>
+    <color name="acent_button">#ffff00</color>
 </resources>
