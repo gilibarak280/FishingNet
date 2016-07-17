@@ -19,12 +19,20 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter {
         switch(position){
             case(0):
                 return new SignInFragment();
-            case (2):
-                return new MeetingsFragment();
+            case(1):
+                //return new WeatherFragment();
+                break;
+            case(2):
+                //return new MeetingsFragment();
+                break;
+            case(5):
+                return new WeatherFragment();
+            case (6):
+                return new ListViewFragment();
             default:
                 return new TabFragment();
         }
-
+        return new TabFragment();
         // Which Fragment should be dislpayed by the viewpager for the given position
         // In my case we are showing up only one fragment in all the three tabs so we are
         // not worrying about the position and just returning the TabFragment
@@ -32,7 +40,7 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public int getCount() {
-        return 5;           // As there are only 5 Tabs
+        return 7;       // As there are only 6 Tabs
     }
 
 }

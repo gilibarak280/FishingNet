@@ -10,7 +10,7 @@ import java.util.ArrayList;
  */
 public class MeetingsAdapter extends RecyclerView.Adapter {
 
-    public MeetingsAdapter(ArrayList<Meetings> meetings, int list_item_meetings) {
+    public MeetingsAdapter(ArrayList<Meeting> meetings, int list_item_meetings) {
 
     }
 

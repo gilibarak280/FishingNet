@@ -10,6 +10,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.firebase.client.Firebase;
+
 public class MainActivity extends AppCompatActivity {
 
     private Toolbar toolbar;
@@ -18,17 +20,17 @@ public class MainActivity extends AppCompatActivity {
     private ViewPagerAdapter viewPagerAdapter;
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        //Firebase.setAndroidContext(this);
+
         /*
         Assigning view variables to their respective view in xml
         by findViewByID method
          */
-
         //toolbar = (Toolbar) findViewById(R.id.tool_bar);
         tabLayout = (TabLayout) findViewById(R.id.tabs);
         viewPager = (ViewPager) findViewById(R.id.viewpager);
@@ -52,16 +54,19 @@ public class MainActivity extends AppCompatActivity {
         final TabLayout.Tab meetings = tabLayout.newTab();
         final TabLayout.Tab dag2 = tabLayout.newTab();
         final TabLayout.Tab chat = tabLayout.newTab();
+        final TabLayout.Tab weather = tabLayout.newTab();
+        final TabLayout.Tab list = tabLayout.newTab();
 
         /*
         Setting Title text for our tabs respectively
          */
-
         home.setText("ראשי");
         reports.setText("דיווחים");
         meetings.setText("מפגשים");
         dag2.setText("דג2");
         chat.setText("צ'אט");
+        weather.setText("weather");
+        list.setText("list");
 
         /*
         Adding the tab view to our tablayout at appropriate positions
@@ -73,6 +78,8 @@ public class MainActivity extends AppCompatActivity {
         tabLayout.addTab(meetings, 2);
         tabLayout.addTab(dag2, 3);
         tabLayout.addTab(chat, 4);
+        tabLayout.addTab(weather,5);
+        tabLayout.addTab(list,6);
 
         /*
         TabTextColor sets the color for the title of the tabs, passing a ColorStateList here makes
