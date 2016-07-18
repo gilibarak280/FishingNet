@@ -29,6 +29,8 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter {
                 return new WeatherFragment();
             case (6):
                 return new ListViewFragment();
+            case (7):
+                return new RecyclerViewFragment();
             default:
                 return new TabFragment();
         }
@@ -40,7 +42,7 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public int getCount() {
-        return 7;       // As there are only 6 Tabs
+        return 8;       // As there are only 8 Tabs
     }
 
 }

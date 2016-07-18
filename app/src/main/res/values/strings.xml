@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">רשת דיג</string>
     <string name="action_settings">Settings</string>
+    <string name="x_start">x_start</string>
+    <string name="x_end">x_end</string>
 
     <string-array name="FishingStyleArray">
         <item>בוס</item>
