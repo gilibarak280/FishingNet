@@ -11,9 +11,14 @@
 
 
     <android.support.design.widget.FloatingActionButton
-        android:layout_width="55dp"
-        android:layout_height="61dp"
         android:id="@+id/fab_2"
-        android:layout_gravity="bottom" />
+        android:layout_width="@dimen/fab_size"
+        android:layout_height="@dimen/fab_size"
+        android:background="@drawable/ripple"
+        android:layout_gravity="bottom"
+        android:layout_marginBottom="16dp"
+        android:layout_marginEnd="16dp"
+        android:src="@drawable/reply"
+        android:elevation="10dp" />
 
 </LinearLayout>
