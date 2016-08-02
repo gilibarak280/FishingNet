@@ -7,13 +7,25 @@ import android.media.Image;
  */
 public class ReportModel {
 
-    Image image;
-    String headline;
-    String description;
+    //Image image;
+    // Pass a custom Java object to Firebase: the class that defines it need a default constructor
+    // that takes no arguments and has public getters for the properties to be assigned.
+    public String headline;
+    public String description;
 
-    public ReportModel(Image image,String headline,String description){
+//    public ReportModel(Image image,String headline,String description){
+//
+//        this.image = image;
+//        this.headline = headline;
+//        this.description = description;
+//    }
 
-        this.image = image;
+    public ReportModel(){
+        // Default constructor required for calls to DataSnapshot.getValue(User.class)
+    }
+
+    public ReportModel(String headline,String description){
+
         this.headline = headline;
         this.description = description;
     }

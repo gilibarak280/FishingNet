@@ -16,6 +16,7 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
@@ -66,8 +67,7 @@ public class ReportsFragment extends Fragment {
             protected void populateViewHolder(ReportViewHolder reportViewHolder, ReportModel rm, int i) {
                 // TODO: set real image from database
                 //reportViewHolder.image.setImageBitmap(BitmapFactory.decodeFile(rm.image));
-                reports.add(rm);
-                reportViewHolder.image.setImageResource(R.drawable.backend);
+                //reportViewHolder.image.setImageResource(R.drawable.backend);
                 reportViewHolder.headline.setText(rm.headline);
                 reportViewHolder.description.setText(rm.description);
             }
@@ -107,6 +107,15 @@ public class ReportsFragment extends Fragment {
                                     }
                                 });
 
+                                galleryButton.setOnTouchListener(new View.OnTouchListener() {
+
+                                    @Override
+                                    public boolean onTouch(View view, MotionEvent motionEvent) {
+                                        loadImageFromGallery();
+                                        return false;
+                                    }
+                                });
+
                                 ImageButton cameraButton = (ImageButton) addReportView.findViewById(R.id.camera_button);
                                 cameraButton.setOnClickListener(new View.OnClickListener() {
                                     @Override
@@ -115,11 +124,11 @@ public class ReportsFragment extends Fragment {
                                     }
                                 });
 
-                                // Your functionality here
-                                //mRootRef.push().setValue(.....);
+                                ReportModel report = new ReportModel(headlineText,descriptionText);
+                                reports.add(report);
+                                mRootRef.push().setValue(report);
 
-                                //mItems.add(xStart);
-                                //adapter.notifyDataSetChanged();
+                                adapter.notifyDataSetChanged();
                             }
                         })
                         .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -180,13 +189,13 @@ public class ReportsFragment extends Fragment {
     }
     public static class ReportViewHolder extends RecyclerView.ViewHolder {
 
-        ImageView image;
+        //ImageView image;
         TextView headline;
         TextView description;
 
         public ReportViewHolder(View itemView) {
             super(itemView);
-            image = (ImageView) itemView.findViewById(R.id.card_image);
+            //image = (ImageView) itemView.findViewById(R.id.card_image);
             headline = (TextView) itemView.findViewById(R.id.card_headline);
             description = (TextView) itemView.findViewById(R.id.card_description);
         }
