@@ -73,7 +73,8 @@ public class ReportsFragment extends Fragment {
                     Bitmap bitmap = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
                     reportViewHolder.image.setImageBitmap(bitmap);
                 }
-                else{
+                else
+                {
 
                 }
                     reportViewHolder.headline.setText(rm.headline);
