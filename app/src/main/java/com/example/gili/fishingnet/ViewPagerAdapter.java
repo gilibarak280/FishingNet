@@ -20,8 +20,7 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter {
             case(0):
                 return new SignInFragment();
             case(1):
-                //return new WeatherFragment();
-                break;
+                return new ReportsFragment();
             case(2):
                 //return new MeetingsFragment();
                 break;

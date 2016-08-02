@@ -63,7 +63,7 @@ public class RecyclerViewFragment extends Fragment {
                 // Get the layout inflater
                 LayoutInflater inflater = getActivity().getLayoutInflater();
 
-                final View setPositionView = inflater.inflate(R.layout.edit_position_layout, null);
+                final View setPositionView = inflater.inflate(R.layout.add_report_layout, null);
 
                 // Inflate and set the layout for the dialog
                 // Pass null as the parent view because its going in the dialog layout
@@ -72,11 +72,11 @@ public class RecyclerViewFragment extends Fragment {
                         .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                TextView xStartView = (TextView) setPositionView.findViewById(R.id.x_start);
-                                String xStart = xStartView.getText().toString();
+                                //TextView xStartView = (TextView) setPositionView.findViewById(R.id.x_start);
+                                //String xStart = xStartView.getText().toString();
 
                                 // Your functionality here
-                                mRootRef.push().setValue(xStart);
+                                //mRootRef.push().setValue(xStart);
 
                                 //mItems.add(xStart);
                                 //adapter.notifyDataSetChanged();
