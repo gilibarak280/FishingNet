@@ -18,7 +18,7 @@
             />
 
         <EditText
-            android:id="@+id/headline_edit_text"
+            android:id="@+id/hline_edit_text"
             android:layout_width="0dip"
             android:layout_weight=".7"
             android:layout_height="wrap_content"
@@ -40,7 +40,7 @@
             />
 
         <EditText
-            android:id="@+id/description_edit_text"
+            android:id="@+id/details_edit_text"
             android:layout_width="0dip"
             android:layout_weight=".7"
             android:layout_height="wrap_content"
@@ -83,14 +83,14 @@
             />
 
         <ImageButton
-            android:id="@+id/gallery_button"
+            android:id="@+id/gallery_button1"
             android:layout_width="0dip"
             android:layout_weight=".2"
             android:layout_height="wrap_content"
             android:src="@drawable/gallery" />
 
         <ImageButton
-            android:id="@+id/camera_button"
+            android:id="@+id/camera_button1"
             android:layout_width="0dip"
             android:layout_weight=".2"
             android:layout_height="wrap_content"

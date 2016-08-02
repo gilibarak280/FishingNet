@@ -38,7 +38,7 @@ public class Dag2Fragment extends Fragment{
     Firebase mRootRef;
 
     // Data
-    ArrayList<Dag2Model> ad = new ArrayList<>();
+    ArrayList<Dag2Model> adArrayList = new ArrayList<>();
     FirebaseRecyclerAdapter<Dag2Model, adViewHolder> adapter;
 
     // UI
@@ -62,8 +62,8 @@ public class Dag2Fragment extends Fragment{
             protected void populateViewHolder(adViewHolder adViewHolder, Dag2Model rm, int i) {
                 // TODO: set real image from database
                 //adViewHolder.image.setImageBitmap(BitmapFactory.decodeFile(rm.image));
-                ad.add(rm);
-                adViewHolder.image.setImageResource(R.drawable.backend);
+                adArrayList.add(rm);
+                //adViewHolder.image.setImageResource(R.drawable.backend);
                 adViewHolder.hline.setText(rm.hline);
                 adViewHolder.details.setText(rm.details);
                 adViewHolder.price.setText(rm.price);
@@ -90,13 +90,13 @@ public class Dag2Fragment extends Fragment{
                         .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                EditText headline = (EditText) addadView.findViewById(R.id.headline_edit_text);
-                                String headlineText = headline.getText().toString();
+                                EditText headline = (EditText) addadView.findViewById(R.id.hline_edit_text);
+                                String hlineText = headline.getText().toString();
 
-                                EditText description = (EditText) addadView.findViewById(R.id.description_edit_text);
+                                EditText description = (EditText) addadView.findViewById(R.id.details_edit_text);
                                 String descriptionText = description.getText().toString();
 
-                                ImageButton galleryButton = (ImageButton) addadView.findViewById(R.id.gallery_button);
+                                ImageButton galleryButton = (ImageButton) addadView.findViewById(R.id.gallery_button1);
                                 galleryButton.setOnClickListener(new View.OnClickListener() {
                                     @Override
                                     public void onClick(View view) {
@@ -104,7 +104,10 @@ public class Dag2Fragment extends Fragment{
                                     }
                                 });
 
-                                ImageButton cameraButton = (ImageButton) addadView.findViewById(R.id.camera_button);
+                                EditText price = (EditText) addadView.findViewById(R.id.price);
+                                String priceText = price.getText().toString();
+
+                                ImageButton cameraButton = (ImageButton) addadView.findViewById(R.id.camera_button1);
                                 cameraButton.setOnClickListener(new View.OnClickListener() {
                                     @Override
                                     public void onClick(View view) {
@@ -113,10 +116,10 @@ public class Dag2Fragment extends Fragment{
                                 });
 
                                 // Your functionality here
-                                //mRootRef.push().setValue(.....);
-
-                                //mItems.add(xStart);
-                                //adapter.notifyDataSetChanged();
+                                Dag2Model ad = new Dag2Model(hlineText,descriptionText,priceText);
+                                adArrayList.add(ad);
+                                mRootRef.push().setValue(ad);
+                                adapter.notifyDataSetChanged();
                             }
                         })
                         .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
