@@ -64,8 +64,8 @@ public class Dag2Fragment extends Fragment{
                 //adViewHolder.image.setImageBitmap(BitmapFactory.decodeFile(rm.image));
                 ad.add(rm);
                 adViewHolder.image.setImageResource(R.drawable.backend);
-                adViewHolder.headline.setText(rm.hline);
-                adViewHolder.description.setText(rm.detailes);
+                adViewHolder.hline.setText(rm.hline);
+                adViewHolder.details.setText(rm.details);
                 adViewHolder.price.setText(rm.price);
             }
         };
@@ -179,15 +179,15 @@ public class Dag2Fragment extends Fragment{
     public static class adViewHolder extends RecyclerView.ViewHolder {
 
         ImageView image;
-        TextView headline;
-        TextView description;
+        TextView hline;
+        TextView details;
         TextView price;
 
         public adViewHolder(View itemView) {
             super(itemView);
             image = (ImageView) itemView.findViewById(R.id.card_image);
-            headline = (TextView) itemView.findViewById(R.id.card_headline);
-            description = (TextView) itemView.findViewById(R.id.card_description);
+            hline = (TextView) itemView.findViewById(R.id.card_headline);
+            details = (TextView) itemView.findViewById(R.id.card_description);
             price = (TextView)itemView.findViewById(R.id.card_description);
         }
     }

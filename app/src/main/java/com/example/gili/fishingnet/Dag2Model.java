@@ -8,7 +8,7 @@ import android.media.Image;
 public class Dag2Model {
 
     public String hline;
-    public String detailes;
+    public String details;
     public String price;
 
     public Dag2Model(){
@@ -17,7 +17,7 @@ public class Dag2Model {
     public Dag2Model(String headline,String description,String price){
 
         this.hline = headline;
-        this.detailes = description;
+        this.details = description;
         this.price=price;
     }
 }
