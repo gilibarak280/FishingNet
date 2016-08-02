@@ -36,6 +36,7 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter {
                 return new MapsFragment();
             default:
                 return new TabFragment();
+
         }
         return new TabFragment();
         // Which Fragment should be dislpayed by the viewpager for the given position
