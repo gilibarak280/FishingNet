@@ -24,6 +24,8 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter {
             case(2):
                 //return new MeetingsFragment();
                 break;
+            case(3):
+                return new Dag2Fragment();
             case(5):
                 return new WeatherFragment();
             case (6):
