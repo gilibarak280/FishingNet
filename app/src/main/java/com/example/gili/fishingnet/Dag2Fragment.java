@@ -14,6 +14,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,6 +26,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 import com.firebase.client.Firebase;
 import com.firebase.ui.FirebaseRecyclerAdapter;
+
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.util.ArrayList;
 
@@ -40,6 +43,7 @@ public class Dag2Fragment extends Fragment{
     // Data
     ArrayList<Dag2Model> adArrayList = new ArrayList<>();
     FirebaseRecyclerAdapter<Dag2Model, adViewHolder> adapter;
+    String selectedImageBitmapString;
 
     // UI
     RecyclerView mRecyclerView;
@@ -60,16 +64,22 @@ public class Dag2Fragment extends Fragment{
         adapter = new FirebaseRecyclerAdapter<Dag2Model, adViewHolder>(Dag2Model.class, R.layout.recycler_list_item, adViewHolder.class, mRootRef) {
             @Override
             protected void populateViewHolder(adViewHolder adViewHolder, Dag2Model rm, int i) {
-                // TODO: set real image from database
-                //adViewHolder.image.setImageBitmap(BitmapFactory.decodeFile(rm.image));
-                adArrayList.add(rm);
-                //adViewHolder.image.setImageResource(R.drawable.backend);
+                if(rm.imageBString!=null) {
+                    byte[] decodedString = Base64.decode(rm.imageBString, Base64.DEFAULT);
+                    Bitmap bitmap = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+                    adViewHolder.image.setImageBitmap(bitmap);
+                }
+                else{
+
+                }
                 adViewHolder.hline.setText(rm.hline);
                 adViewHolder.details.setText(rm.details);
                 adViewHolder.price.setText(rm.price);
+
             }
         };
-
+                // TODO: set real image from database
+               // adArrayList.add(rm);
         mRecyclerView.setAdapter(adapter);
 
         fab.setOnClickListener(new View.OnClickListener() {
@@ -116,7 +126,7 @@ public class Dag2Fragment extends Fragment{
                                 });
 
                                 // Your functionality here
-                                Dag2Model ad = new Dag2Model(hlineText,descriptionText,priceText);
+                                Dag2Model ad = new Dag2Model(selectedImageBitmapString,hlineText,descriptionText,priceText);
                                 adArrayList.add(ad);
                                 mRootRef.push().setValue(ad);
                                 adapter.notifyDataSetChanged();
@@ -168,6 +178,15 @@ public class Dag2Fragment extends Fragment{
                 File image = new File(imgDecodableString);
                 BitmapFactory.Options bmOptions = new BitmapFactory.Options();
                 Bitmap imageBitmap = BitmapFactory.decodeFile(image.getAbsolutePath(), bmOptions);
+                Bitmap selectedImageBitmap = Bitmap.createBitmap(imageBitmap);
+
+
+                // Encode Bitmap to String
+                ByteArrayOutputStream bYtE = new ByteArrayOutputStream();
+                selectedImageBitmap.compress(Bitmap.CompressFormat.PNG, 100, bYtE);
+                selectedImageBitmap.recycle();
+                byte[] byteArray = bYtE.toByteArray();
+                selectedImageBitmapString = Base64.encodeToString(byteArray, Base64.DEFAULT);
                 //TODO: find out which format is expected in Firebase, while model needs to be saved
 
             } else {
