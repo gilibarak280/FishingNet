@@ -49,7 +49,9 @@ public class ReportsFragment extends Fragment {
     // UI
     RecyclerView mRecyclerView;
 
+    private int flag;
     private static int RESULT_LOAD_IMG = 1;
+    private static final int CAMERA_REQUEST = 1888;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -100,9 +102,21 @@ public class ReportsFragment extends Fragment {
                 galleryButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
+                        flag = 1;
                         loadImageFromGallery();
                     }
                 });
+
+                ImageButton cameraButton = (ImageButton) addReportView.findViewById(R.id.camera_button);
+                cameraButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        flag = 2;
+                        Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+                        startActivityForResult(cameraIntent, CAMERA_REQUEST);
+                    }
+                });
+
                 // Inflate and set the layout for the dialog
                 // Pass null as the parent view because its going in the dialog layout
                 builder.setView(addReportView)
@@ -115,14 +129,6 @@ public class ReportsFragment extends Fragment {
 
                                 EditText description = (EditText) addReportView.findViewById(R.id.description_edit_text);
                                 String descriptionText = description.getText().toString();
-
-                                ImageButton cameraButton = (ImageButton) addReportView.findViewById(R.id.camera_button);
-                                cameraButton.setOnClickListener(new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View view) {
-
-                                    }
-                                });
 
                                 ReportModel report = new ReportModel(selectedImageBitmapString, headlineText,descriptionText);
                                 reports.add(report);
@@ -157,6 +163,18 @@ public class ReportsFragment extends Fragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        switch(flag){
+            case (1):
+                onGalleryActivityResult(requestCode, resultCode, data);
+                break;
+            case(2):
+                onCameraActivityResult(requestCode, resultCode, data);
+                break;
+            default:
+        }
+    }
+
+    public void onGalleryActivityResult(int requestCode, int resultCode, Intent data){
         try {
             // When an Image is picked
             getActivity();
@@ -179,14 +197,12 @@ public class ReportsFragment extends Fragment {
                 Bitmap imageBitmap = BitmapFactory.decodeFile(image.getAbsolutePath(), bmOptions);
                 Bitmap selectedImageBitmap = Bitmap.createBitmap(imageBitmap);
 
-
                 // Encode Bitmap to String
                 ByteArrayOutputStream bYtE = new ByteArrayOutputStream();
                 selectedImageBitmap.compress(Bitmap.CompressFormat.PNG, 100, bYtE);
                 selectedImageBitmap.recycle();
                 byte[] byteArray = bYtE.toByteArray();
                 selectedImageBitmapString = Base64.encodeToString(byteArray, Base64.DEFAULT);
-                //TODO: find out which format is expected in Firebase, while model needs to be saved
 
             } else {
                 Toast.makeText(getActivity(), "You haven't picked Image", Toast.LENGTH_LONG).show();
@@ -196,6 +212,19 @@ public class ReportsFragment extends Fragment {
                     .show();
         }
     }
+
+    public void onCameraActivityResult(int requestCode, int resultCode, Intent data){
+        if (requestCode == CAMERA_REQUEST && resultCode == Activity.RESULT_OK) {
+            Bitmap photo = (Bitmap) data.getExtras().get("data");
+            // Encode Bitmap to String
+            ByteArrayOutputStream bYtE = new ByteArrayOutputStream();
+            photo.compress(Bitmap.CompressFormat.PNG, 100, bYtE);
+            photo.recycle();
+            byte[] byteArray = bYtE.toByteArray();
+            selectedImageBitmapString = Base64.encodeToString(byteArray, Base64.DEFAULT);
+        }
+    }
+
     public static class ReportViewHolder extends RecyclerView.ViewHolder {
 
         ImageView image;
