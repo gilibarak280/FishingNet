@@ -57,6 +57,7 @@ public class MainActivity extends AppCompatActivity {
         final TabLayout.Tab weather = tabLayout.newTab();
         final TabLayout.Tab list = tabLayout.newTab();
         final TabLayout.Tab recycler = tabLayout.newTab();
+        final TabLayout.Tab maps = tabLayout.newTab();
 
         /*
         Setting Title text for our tabs respectively
@@ -69,6 +70,7 @@ public class MainActivity extends AppCompatActivity {
         weather.setText("weather");
         list.setText("list");
         recycler.setText("recycler");
+        maps.setText("Maps");
 
         /*
         Adding the tab view to our tablayout at appropriate positions
@@ -83,6 +85,7 @@ public class MainActivity extends AppCompatActivity {
         tabLayout.addTab(weather,5);
         tabLayout.addTab(list,6);
         tabLayout.addTab(recycler,7);
+        tabLayout.addTab(maps,8);
 
         /*
         TabTextColor sets the color for the title of the tabs, passing a ColorStateList here makes

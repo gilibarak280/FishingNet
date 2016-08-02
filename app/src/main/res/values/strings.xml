@@ -16,4 +16,5 @@
         <item>הכל הולך</item>
         <item>אחר</item>
     </string-array>
+    <string name="title_activity_maps_fragment">Map</string>
 </resources>

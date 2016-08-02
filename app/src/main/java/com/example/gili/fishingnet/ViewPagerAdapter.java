@@ -32,6 +32,8 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter {
                 return new ListViewFragment();
             case (7):
                 return new RecyclerViewFragment();
+            case (8):
+                return new MapsFragment();
             default:
                 return new TabFragment();
         }
@@ -43,7 +45,7 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public int getCount() {
-        return 8;       // As there are only 8 Tabs
+        return 9;       // As there are only 8 Tabs
     }
 
 }
