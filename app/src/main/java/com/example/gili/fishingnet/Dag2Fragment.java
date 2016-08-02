@@ -50,13 +50,11 @@ public class Dag2Fragment extends Fragment{
     {
 
         LinearLayout recyclerLayout = (LinearLayout) inflater.inflate(R.layout.fragment_recycler, container, false);
-
         mRootRef = new Firebase("https://fishingnet-dd809.firebaseio.com/ads");
         mRecyclerView = (RecyclerView) recyclerLayout.findViewById(R.id.recycler_view);
         mRecyclerView.setHasFixedSize(true);
         LinearLayoutManager manager = new LinearLayoutManager(getContext());
         mRecyclerView.setLayoutManager(manager);
-
         FloatingActionButton fab = (FloatingActionButton) recyclerLayout.findViewById(R.id.fab_2);
 
         adapter = new FirebaseRecyclerAdapter<Dag2Model, adViewHolder>(Dag2Model.class, R.layout.recycler_list_item, adViewHolder.class, mRootRef) {
@@ -66,8 +64,8 @@ public class Dag2Fragment extends Fragment{
                 //adViewHolder.image.setImageBitmap(BitmapFactory.decodeFile(rm.image));
                 ad.add(rm);
                 adViewHolder.image.setImageResource(R.drawable.backend);
-                adViewHolder.headline.setText(rm.headline);
-                adViewHolder.description.setText(rm.description);
+                adViewHolder.headline.setText(rm.hline);
+                adViewHolder.description.setText(rm.detailes);
                 adViewHolder.price.setText(rm.price);
             }
         };
