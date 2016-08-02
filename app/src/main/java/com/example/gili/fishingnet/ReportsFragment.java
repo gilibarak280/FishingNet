@@ -7,7 +7,6 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -15,6 +14,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -29,6 +29,7 @@ import android.widget.Toast;
 import com.firebase.client.Firebase;
 import com.firebase.ui.FirebaseRecyclerAdapter;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.util.ArrayList;
 
@@ -43,6 +44,7 @@ public class ReportsFragment extends Fragment {
     // Data
     ArrayList<ReportModel> reports = new ArrayList<>();
     FirebaseRecyclerAdapter<ReportModel,ReportViewHolder> adapter;
+    String selectedImageBitmapString;
 
     // UI
     RecyclerView mRecyclerView;
@@ -66,10 +68,16 @@ public class ReportsFragment extends Fragment {
             @Override
             protected void populateViewHolder(ReportViewHolder reportViewHolder, ReportModel rm, int i) {
                 // TODO: set real image from database
-                //reportViewHolder.image.setImageBitmap(BitmapFactory.decodeFile(rm.image));
-                //reportViewHolder.image.setImageResource(R.drawable.backend);
-                reportViewHolder.headline.setText(rm.headline);
-                reportViewHolder.description.setText(rm.description);
+                if(rm.imageBitmapString!=null) {
+                    byte[] decodedString = Base64.decode(rm.imageBitmapString, Base64.DEFAULT);
+                    Bitmap bitmap = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+                    reportViewHolder.image.setImageBitmap(bitmap);
+                }
+                else{
+
+                }
+                    reportViewHolder.headline.setText(rm.headline);
+                    reportViewHolder.description.setText(rm.description);
             }
         };
 
@@ -86,6 +94,14 @@ public class ReportsFragment extends Fragment {
 
                 final View addReportView = inflater.inflate(R.layout.add_report_layout, null);
 
+                ImageButton galleryButton = (ImageButton) addReportView.findViewById(R.id.gallery_button);
+
+                galleryButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        loadImageFromGallery();
+                    }
+                });
                 // Inflate and set the layout for the dialog
                 // Pass null as the parent view because its going in the dialog layout
                 builder.setView(addReportView)
@@ -99,23 +115,6 @@ public class ReportsFragment extends Fragment {
                                 EditText description = (EditText) addReportView.findViewById(R.id.description_edit_text);
                                 String descriptionText = description.getText().toString();
 
-                                ImageButton galleryButton = (ImageButton) addReportView.findViewById(R.id.gallery_button);
-                                galleryButton.setOnClickListener(new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View view) {
-                                        loadImageFromGallery();
-                                    }
-                                });
-
-                                galleryButton.setOnTouchListener(new View.OnTouchListener() {
-
-                                    @Override
-                                    public boolean onTouch(View view, MotionEvent motionEvent) {
-                                        loadImageFromGallery();
-                                        return false;
-                                    }
-                                });
-
                                 ImageButton cameraButton = (ImageButton) addReportView.findViewById(R.id.camera_button);
                                 cameraButton.setOnClickListener(new View.OnClickListener() {
                                     @Override
@@ -124,7 +123,7 @@ public class ReportsFragment extends Fragment {
                                     }
                                 });
 
-                                ReportModel report = new ReportModel(headlineText,descriptionText);
+                                ReportModel report = new ReportModel(selectedImageBitmapString, headlineText,descriptionText);
                                 reports.add(report);
                                 mRootRef.push().setValue(report);
 
@@ -177,6 +176,15 @@ public class ReportsFragment extends Fragment {
                 File image = new File(imgDecodableString);
                 BitmapFactory.Options bmOptions = new BitmapFactory.Options();
                 Bitmap imageBitmap = BitmapFactory.decodeFile(image.getAbsolutePath(), bmOptions);
+                Bitmap selectedImageBitmap = Bitmap.createBitmap(imageBitmap);
+
+
+                // Encode Bitmap to String
+                ByteArrayOutputStream bYtE = new ByteArrayOutputStream();
+                selectedImageBitmap.compress(Bitmap.CompressFormat.PNG, 100, bYtE);
+                selectedImageBitmap.recycle();
+                byte[] byteArray = bYtE.toByteArray();
+                selectedImageBitmapString = Base64.encodeToString(byteArray, Base64.DEFAULT);
                 //TODO: find out which format is expected in Firebase, while model needs to be saved
 
             } else {
@@ -189,13 +197,13 @@ public class ReportsFragment extends Fragment {
     }
     public static class ReportViewHolder extends RecyclerView.ViewHolder {
 
-        //ImageView image;
+        ImageView image;
         TextView headline;
         TextView description;
 
         public ReportViewHolder(View itemView) {
             super(itemView);
-            //image = (ImageView) itemView.findViewById(R.id.card_image);
+            image = (ImageView) itemView.findViewById(R.id.card_image);
             headline = (TextView) itemView.findViewById(R.id.card_headline);
             description = (TextView) itemView.findViewById(R.id.card_description);
         }
