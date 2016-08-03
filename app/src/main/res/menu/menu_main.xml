@@ -2,9 +2,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.example.gili.testtabsapplication.MainActivity">
-    <item
-        android:id="@+id/action_settings"
-        android:orderInCategory="100"
-        android:title="@string/action_settings"
-        app:showAsAction="never" />
-</menu>
+<item
+    android:id="@+id/action_settings"
+    android:orderInCategory="100"
+    android:title="@string/action_settings"
+    app:showAsAction="never" />
+
+<item android:id="@+id/shareApp" android:title="שתף"
+    android:icon="@mipmap/abc_ic_menu_share_holo_dark"
+    android:orderInCategory="100" app:showAsAction="always" />
+    </menu>

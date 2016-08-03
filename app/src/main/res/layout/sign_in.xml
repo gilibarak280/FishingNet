@@ -19,6 +19,7 @@
 
         <com.google.android.gms.common.SignInButton
             android:id="@+id/sign_in_button"
+            android:text="היכנס"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
@@ -47,12 +48,16 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Sign Out"
+            android:text="התנתק"
             android:id="@+id/signOutButton"
             android:layout_gravity="bottom|center_horizontal"
             android:layout_centerVertical="true"
-            android:layout_centerHorizontal="true" />
+            android:layout_alignEnd="@+id/sign_in_button"
+            android:layout_alignStart="@+id/sign_in_button" />
 
     </RelativeLayout>
 
 </RelativeLayout>
+
+
+

@@ -1,5 +1,6 @@
 package com.example.gili.fishingnet;
 
+import android.content.Intent;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
@@ -26,7 +27,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         //Firebase.setAndroidContext(this);
-
         /*
         Assigning view variables to their respective view in xml
         by findViewByID method
@@ -58,6 +58,8 @@ public class MainActivity extends AppCompatActivity {
         final TabLayout.Tab list = tabLayout.newTab();
         final TabLayout.Tab recycler = tabLayout.newTab();
         final TabLayout.Tab maps = tabLayout.newTab();
+
+
 
         /*
         Setting Title text for our tabs respectively
@@ -123,6 +125,17 @@ public class MainActivity extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            return true;
+        }
+
+        else if (id == R.id.shareApp) {
+
+            Intent shareIntent = new Intent(android.content.Intent.ACTION_SEND);
+            shareIntent.setType("text/plain");
+            shareIntent.putExtra(Intent.EXTRA_SUBJECT, "דגים");
+            shareIntent.putExtra(Intent.EXTRA_TEXT, "https://www.facebook.com/groups/1749175708646262/");
+
+            startActivity(Intent.createChooser(shareIntent, "בחר איפה לשתף את האפליקציה"));
             return true;
         }
 

@@ -11,10 +11,11 @@
         android:orientation="horizontal" >
 
         <TextView
-            android:layout_width="0dip"
-            android:layout_weight=".3"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="כותרת:"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+
             />
 
         <EditText
@@ -33,10 +34,11 @@
         android:orientation="horizontal" >
 
         <TextView
-            android:layout_width="0dip"
-            android:layout_weight=".3"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="תיאור:"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+
             />
 
         <EditText
@@ -55,16 +57,17 @@
         android:orientation="horizontal" >
 
         <TextView
-            android:layout_width="0dip"
-            android:layout_weight=".3"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="מחיר:"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+
             />
 
         <EditText
             android:id="@+id/price"
             android:layout_width="0dip"
-            android:layout_weight=".7"
+            android:layout_weight="0.65"
             android:layout_height="wrap_content"
             android:singleLine="true" />
 
@@ -73,27 +76,27 @@
     <LinearLayout android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
-        android:orientation="horizontal" >
+        android:orientation="horizontal"
+        android:weightSum="1">
 
         <TextView
-            android:layout_width="0dip"
-            android:layout_weight=".3"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="העלה תמונה:"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+
             />
 
         <ImageButton
             android:id="@+id/gallery_button1"
-            android:layout_width="0dip"
-            android:layout_weight=".2"
-            android:layout_height="wrap_content"
+            android:layout_width="63dp"
+            android:layout_height="69dp"
             android:src="@drawable/gallery" />
 
         <ImageButton
             android:id="@+id/camera_button1"
-            android:layout_width="0dip"
-            android:layout_weight=".2"
-            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
             android:src="@drawable/camera" />
 
     </LinearLayout>
