@@ -7,25 +7,52 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin">
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="313dp"
+        android:orientation="vertical"
+        android:layout_row="8"
+        android:layout_column="0"
+        android:layout_gravity="bottom"
+        android:layout_centerVertical="true"
+        android:layout_alignParentEnd="true">
+
+        <com.google.android.gms.common.SignInButton
+            android:id="@+id/sign_in_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_above="@+id/signOutButton"
+            android:layout_centerHorizontal="true" />
+
         <TextView
             android:id="@+id/status_textview"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="" />
-        <com.google.android.gms.common.SignInButton
-            android:id="@+id/sign_in_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:text="שלום אורח"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:layout_below="@+id/relativeLayout"
+            android:layout_centerHorizontal="true" />
+
+
+        <RelativeLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:id="@+id/relativeLayout"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentStart="true"></RelativeLayout>
+
         <Button
-            android:layout_width="110dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Sign Out"
             android:id="@+id/signOutButton"
-            />
-    </LinearLayout>
+            android:layout_gravity="bottom|center_horizontal"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true" />
+
+    </RelativeLayout>
 
 </RelativeLayout>

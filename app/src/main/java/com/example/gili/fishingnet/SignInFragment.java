@@ -40,14 +40,12 @@ public class SignInFragment extends Fragment implements GoogleApiClient.OnConnec
         statusTextView = (TextView) signInLayout.findViewById(R.id.status_textview);
         signInButton = (SignInButton) signInLayout.findViewById(R.id.sign_in_button);
         signInButton.setOnClickListener(this);
-
         signOutButton = (Button) signInLayout.findViewById(R.id.signOutButton);
         signOutButton.setOnClickListener(this);
-
         googleApiClient = UserAccount.getGoogleApiClient();
         GoogleSignInAccount lastUser = UserAccount.getUserAccount();
         if(lastUser!=null){
-            statusTextView.setText("Hey "+lastUser.getDisplayName());
+            statusTextView.setText("שלום לך, "+lastUser.getDisplayName());
         }
 
         return signInLayout;
@@ -97,7 +95,7 @@ public class SignInFragment extends Fragment implements GoogleApiClient.OnConnec
         if(result.isSuccess()){
             GoogleSignInAccount acct = result.getSignInAccount();
             UserAccount.setUserAccount(acct);
-            statusTextView.setText("Hey "+acct.getDisplayName());
+            statusTextView.setText("שלום לך, "+acct.getDisplayName());
         }
         else{
             statusTextView.setText("no");
@@ -109,7 +107,7 @@ public class SignInFragment extends Fragment implements GoogleApiClient.OnConnec
             @Override
             public void onResult(@NonNull Status status) {
                 UserAccount.setUserAccount(null);
-                statusTextView.setText("bye bye");
+                statusTextView.setText("להתראות!");
             }
         });
     }
