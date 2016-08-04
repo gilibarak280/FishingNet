@@ -134,7 +134,6 @@ public class MainActivity extends AppCompatActivity {
             shareIntent.setType("text/plain");
             shareIntent.putExtra(Intent.EXTRA_SUBJECT, "דגים");
             shareIntent.putExtra(Intent.EXTRA_TEXT, "https://www.facebook.com/groups/1749175708646262/");
-
             startActivity(Intent.createChooser(shareIntent, "בחר איפה לשתף את האפליקציה"));
             return true;
         }
