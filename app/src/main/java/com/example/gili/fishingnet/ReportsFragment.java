@@ -58,10 +58,12 @@ public class ReportsFragment extends Fragment {
 
         LinearLayout recyclerLayout = (LinearLayout) inflater.inflate(R.layout.fragment_recycler, container, false);
 
+
+
         mRootRef = new Firebase("https://fishingnet-dd809.firebaseio.com/reports");
         mRecyclerView = (RecyclerView) recyclerLayout.findViewById(R.id.recycler_view);
         mRecyclerView.setHasFixedSize(true);
-        LinearLayoutManager manager = new LinearLayoutManager(getContext());
+        final LinearLayoutManager manager = new LinearLayoutManager(getContext());
         mRecyclerView.setLayoutManager(manager);
 
         FloatingActionButton fab = (FloatingActionButton)recyclerLayout.findViewById(R.id.fab_2);
@@ -84,7 +86,25 @@ public class ReportsFragment extends Fragment {
             }
         };
 
+        adapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
+            @Override
+            public void onItemRangeInserted(int positionStart, int itemCount) {
+                super.onItemRangeInserted(positionStart, itemCount);
+                int friendlyMessageCount = adapter.getItemCount();
+                int lastVisiblePosition =
+                        manager.findLastCompletelyVisibleItemPosition();
+                // If the recycler view is initially being loaded or the
+                // user is at the bottom of the list, scroll to the bottom
+                // of the list to show the newly added message.
+                if (lastVisiblePosition == -1 ||
+                        (positionStart >= (friendlyMessageCount - 1) &&
+                                lastVisiblePosition == (positionStart - 1))) {
+                    manager.scrollToPosition(positionStart);
+                }
+            }
+        });
         mRecyclerView.setAdapter(adapter);
+
 
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
