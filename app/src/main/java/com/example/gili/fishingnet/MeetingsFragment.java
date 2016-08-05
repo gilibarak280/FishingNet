@@ -34,7 +34,7 @@
 //import com.firebase.ui.FirebaseRecyclerAdapter;
 //import java.io.ByteArrayOutputStream;
 //import java.io.File;
-//import java.util.ArrayList;
+//import java.util.ArrayList;/
 //
 //public class MeetingsFragment extends Fragment {
 //
