@@ -59,8 +59,6 @@ public class MainActivity extends AppCompatActivity {
         final TabLayout.Tab recycler = tabLayout.newTab();
         final TabLayout.Tab maps = tabLayout.newTab();
 
-
-
         /*
         Setting Title text for our tabs respectively
          */
@@ -84,10 +82,10 @@ public class MainActivity extends AppCompatActivity {
         tabLayout.addTab(meetings, 2);
         tabLayout.addTab(dag2, 3);
         tabLayout.addTab(chat, 4);
-        tabLayout.addTab(weather,5);
-        tabLayout.addTab(list,6);
-        tabLayout.addTab(recycler,7);
-        tabLayout.addTab(maps,8);
+        //tabLayout.addTab(weather,5);
+        //tabLayout.addTab(list,6);
+        //tabLayout.addTab(recycler,7);
+        tabLayout.addTab(maps,5);
 
         /*
         TabTextColor sets the color for the title of the tabs, passing a ColorStateList here makes
@@ -105,7 +103,20 @@ public class MainActivity extends AppCompatActivity {
         changes when a viewpager page changes.
          */
 
+        viewPager.setClickable(true);
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+        tabLayout.setOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(viewPager) {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                super.onTabSelected(tab);
+                //tab.getIcon().setAlpha(255);
+            }
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+                super.onTabUnselected(tab);
+                //tab.getIcon().setAlpha(127);
+            }
+        });
 
     }
 
