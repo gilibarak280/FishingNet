@@ -11,12 +11,17 @@ public class ReportModel {
     public String imageBitmapString;
     public String headline;
     public String description;
+    public String lat;
+    public String lng;
 
-    public ReportModel(String image,String headline,String description){
+    public ReportModel(String image,String headline,String description,String lat,String lng){
 
         this.imageBitmapString = image;
         this.headline = headline;
         this.description = description;
+        this.lat = lat;
+        this.lng = lng;
+
     }
 
     public ReportModel(){

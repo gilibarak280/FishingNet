@@ -1,8 +1,11 @@
 package com.example.gili.fishingnet;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -51,6 +54,20 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
         mRef.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+
+                ReportModel reportm = dataSnapshot.getValue(ReportModel.class);
+//                Log.v("E_CHILD_ADDED", message);
+//                mMessages.add(message);
+//                adapter.notifyDataSetChanged();
+
+                //rm.headline
+                //rm.description
+
+                LatLng location = new LatLng(Double.parseDouble(reportm.lat),Double.parseDouble(reportm.lng));
+                mMap.addMarker(new MarkerOptions().position(location).title(reportm.headline));
+                //mMap.moveCamera(CameraUpdateFactory.newLatLng(location));
+
+
 
             }
 
@@ -121,6 +138,6 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
         // Add a marker in Sydney and move the camera
         LatLng sydney = new LatLng(-34, 151);
         mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+        //mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
     }
 }

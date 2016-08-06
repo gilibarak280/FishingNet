@@ -150,7 +150,12 @@ public class ReportsFragment extends Fragment {
                                 EditText description = (EditText) addReportView.findViewById(R.id.description_edit_text);
                                 String descriptionText = description.getText().toString();
 
-                                ReportModel report = new ReportModel(selectedImageBitmapString, headlineText,descriptionText);
+                                //if(location is disable)
+                                String lat = new String("0");
+                                String lng = new String("0");
+                                //else
+
+                                ReportModel report = new ReportModel(selectedImageBitmapString, headlineText,descriptionText,lat,lng);
                                 reports.add(report);
                                 mRootRef.push().setValue(report);
 
