@@ -59,12 +59,11 @@ public class ReportsFragment extends Fragment {
 
         LinearLayout recyclerLayout = (LinearLayout) inflater.inflate(R.layout.fragment_recycler, container, false);
 
-
-
         mRootRef = new Firebase("https://fishingnet-dd809.firebaseio.com/reports");
         mRecyclerView = (RecyclerView) recyclerLayout.findViewById(R.id.recycler_view);
         mRecyclerView.setHasFixedSize(true);
         final LinearLayoutManager manager = new LinearLayoutManager(getContext());
+        manager.setReverseLayout(true);
         mRecyclerView.setLayoutManager(manager);
 
         FloatingActionButton fab = (FloatingActionButton)recyclerLayout.findViewById(R.id.fab_2);
@@ -72,18 +71,13 @@ public class ReportsFragment extends Fragment {
         adapter = new FirebaseRecyclerAdapter<ReportModel, ReportViewHolder>(ReportModel.class,R.layout.recycler_list_item, ReportViewHolder.class,mRootRef) {
             @Override
             protected void populateViewHolder(ReportViewHolder reportViewHolder, ReportModel rm, int i) {
-                // TODO: set real image from database
                 if(rm.imageBitmapString!=null) {
                     byte[] decodedString = Base64.decode(rm.imageBitmapString, Base64.DEFAULT);
                     Bitmap bitmap = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
                     reportViewHolder.image.setImageBitmap(bitmap);
                 }
-                else
-                {
-
-                }
-                    reportViewHolder.headline.setText(rm.headline);
-                    reportViewHolder.description.setText(rm.description);
+                reportViewHolder.headline.setText(rm.headline);
+                reportViewHolder.description.setText(rm.description);
             }
         };
 
