@@ -24,6 +24,7 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 public class MapsFragment extends Fragment implements OnMapReadyCallback {
@@ -64,7 +65,8 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
                 //rm.description
                 if (reportm.lat!=null && reportm.lng!=null) {
                     LatLng location = new LatLng(Double.parseDouble(reportm.lat), Double.parseDouble(reportm.lng));
-                    mMap.addMarker(new MarkerOptions().position(location).title(reportm.headline));
+                    //Marker marker = new MarkerOptions().position(location).title(reportm.headline).snippet(reportm.description)
+                    mMap.addMarker(new MarkerOptions().position(location).title(reportm.headline).snippet(reportm.description));
                     //mMap.moveCamera(CameraUpdateFactory.newLatLng(location));
                 }
             }
