@@ -13,15 +13,23 @@ public class ReportModel {
     public String description;
     public String lat;
     public String lng;
+    public String name;
+    public String email;
+    public String time;
 
-    public ReportModel(String image,String headline,String description,String lat,String lng){
 
-        this.imageBitmapString = image;
+    public ReportModel(String selectedImageBitmapString,
+                       String headline, String description, String lat, String lng,
+                       String email,String name,String time){
+
+        this.imageBitmapString = selectedImageBitmapString;
         this.headline = headline;
         this.description = description;
         this.lat = lat;
         this.lng = lng;
-
+        this.email = email;
+        this.name = name;
+        this.time = time;
     }
 
     public ReportModel(){

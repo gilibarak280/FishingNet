@@ -2,15 +2,18 @@ package com.example.gili.fishingnet;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -29,10 +32,13 @@ import android.widget.Toast;
 
 import com.firebase.client.Firebase;
 import com.firebase.ui.FirebaseRecyclerAdapter;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.vision.barcode.Barcode;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 /**
  * Created by Gili on 27/07/2016.
@@ -41,6 +47,8 @@ public class ReportsFragment extends Fragment {
 
     // Firebase
     Firebase mRootRef;
+    //locarion
+    private LocationManager locManager;
 
     // Data
     ArrayList<ReportModel> reports = new ArrayList<>();
@@ -78,6 +86,8 @@ public class ReportsFragment extends Fragment {
                 }
                 reportViewHolder.headline.setText(rm.headline);
                 reportViewHolder.description.setText(rm.description);
+                reportViewHolder.name.setText(rm.name);
+                reportViewHolder.time.setText(rm.time);
             }
         };
 
@@ -104,69 +114,84 @@ public class ReportsFragment extends Fragment {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-                builder.setTitle("הכנס דיווח חדש");
 
-                // Get the layout inflater
-                LayoutInflater inflater = getActivity().getLayoutInflater();
+                if (UserAccount.getUserAccount() != null) {
 
-                final View addReportView = inflater.inflate(R.layout.add_report_layout, null);
+                    AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                    builder.setTitle("הכנס דיווח חדש");
 
-                ImageButton galleryButton = (ImageButton) addReportView.findViewById(R.id.gallery_button);
+                    // Get the layout inflater
+                    LayoutInflater inflater = getActivity().getLayoutInflater();
 
-                galleryButton.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        flag = 1;
-                        loadImageFromGallery();
-                    }
-                });
+                    final View addReportView = inflater.inflate(R.layout.add_report_layout, null);
 
-                ImageButton cameraButton = (ImageButton) addReportView.findViewById(R.id.camera_button);
-                cameraButton.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        flag = 2;
-                        Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
-                        startActivityForResult(cameraIntent, CAMERA_REQUEST);
-                    }
-                });
+                    ImageButton galleryButton = (ImageButton) addReportView.findViewById(R.id.gallery_button);
 
-                // Inflate and set the layout for the dialog
-                // Pass null as the parent view because its going in the dialog layout
-                builder.setView(addReportView)
-                        // Set up the buttons
-                        .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                EditText headline = (EditText) addReportView.findViewById(R.id.headline_edit_text);
-                                String headlineText = headline.getText().toString();
+                    galleryButton.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            flag = 1;
+                            loadImageFromGallery();
+                        }
+                    });
 
-                                EditText description = (EditText) addReportView.findViewById(R.id.description_edit_text);
-                                String descriptionText = description.getText().toString();
+                    ImageButton cameraButton = (ImageButton) addReportView.findViewById(R.id.camera_button);
+                    cameraButton.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            flag = 2;
+                            Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+                            startActivityForResult(cameraIntent, CAMERA_REQUEST);
+                        }
+                    });
 
-                                CheckBox locationCheckbox = (CheckBox) addReportView.findViewById(R.id.location_checbox);
-                                String lat = null;
-                                String lng = null;
-                                if(locationCheckbox.isChecked()) {
-                                    lat = new String("0");
-                                    lng = new String("0");
+                    // Inflate and set the layout for the dialog
+                    // Pass null as the parent view because its going in the dialog layout
+                    builder.setView(addReportView)
+                            // Set up the buttons
+                            .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    EditText headline = (EditText) addReportView.findViewById(R.id.headline_edit_text);
+                                    String headlineText = headline.getText().toString();
+
+                                    EditText description = (EditText) addReportView.findViewById(R.id.description_edit_text);
+                                    String descriptionText = description.getText().toString();
+
+                                    CheckBox locationCheckbox = (CheckBox) addReportView.findViewById(R.id.location_checbox);
+                                    String lat = null;
+                                    String lng = null;
+                                    if (locationCheckbox.isChecked()) {
+                                        //TODO: Add point
+                                        locManager = (LocationManager) getContext().getSystemService(Context.LOCATION_SERVICE);
+                                        lat = new String("0");
+                                        lng = new String("0");
+                                    }
+
+                                    GoogleSignInAccount lastUser = UserAccount.getUserAccount();
+                                    String email = lastUser.getEmail();
+                                    String name = lastUser.getDisplayName();
+                                    Calendar c = Calendar.getInstance();
+                                    String time = c.get(Calendar.DATE) + "/" + c.get(Calendar.MONTH) + "/" + c.get(Calendar.YEAR) + " " + c.get(Calendar.HOUR_OF_DAY) + ":" + c.get(Calendar.MINUTE);
+
+                                    ReportModel report = new ReportModel(selectedImageBitmapString, headlineText, descriptionText, lat, lng, email, name, time);
+                                    reports.add(report);
+                                    mRootRef.push().setValue(report);
+
+                                    adapter.notifyDataSetChanged();
                                 }
-
-                                ReportModel report = new ReportModel(selectedImageBitmapString, headlineText,descriptionText,lat,lng);
-                                reports.add(report);
-                                mRootRef.push().setValue(report);
-
-                                adapter.notifyDataSetChanged();
-                            }
-                        })
-                        .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                dialog.cancel();
-                            }
-                        });
-                builder.show();
+                            })
+                            .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.cancel();
+                                }
+                            });
+                    builder.show();
+                }
+                else{
+                    Toast.makeText(getContext(),"Log in please",Toast.LENGTH_LONG).show();
+                }
             }
         });
 
@@ -253,12 +278,16 @@ public class ReportsFragment extends Fragment {
         ImageView image;
         TextView headline;
         TextView description;
+        TextView name;
+        TextView time;
 
         public ReportViewHolder(View itemView) {
             super(itemView);
             image = (ImageView) itemView.findViewById(R.id.card_image);
             headline = (TextView) itemView.findViewById(R.id.card_headline);
             description = (TextView) itemView.findViewById(R.id.card_description);
+            name = (TextView) itemView.findViewById(R.id.card_name);
+            time = (TextView) itemView.findViewById(R.id.card_time);
         }
     }
 }
