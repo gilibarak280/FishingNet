@@ -12,6 +12,7 @@ import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
@@ -63,7 +64,7 @@ public class Dag2Fragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        LinearLayout recyclerLayout = (LinearLayout) inflater.inflate(R.layout.fragment_recycler, container, false);
+        CoordinatorLayout recyclerLayout = (CoordinatorLayout) inflater.inflate(R.layout.fragment_recycler, container, false);
 
         mRootRef = new Firebase("https://fishingnet-dd809.firebaseio.com/dag2");
         mRecyclerView = (RecyclerView) recyclerLayout.findViewById(R.id.recycler_view);
@@ -86,6 +87,7 @@ public class Dag2Fragment extends Fragment {
                 dag2ViewHolder.details.setText(rm.details);
                 dag2ViewHolder.name.setText(rm.name);
                 dag2ViewHolder.time.setText(rm.time);
+                dag2ViewHolder.price.setText(rm.price);
             }
         };
 
@@ -117,7 +119,7 @@ public class Dag2Fragment extends Fragment {
                 if (UserAccount.getUserAccount() != null) {
 
                     AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-                    builder.setTitle("הכנס מפגש חדש");
+                    builder.setTitle("הכנס פרטי קנייה/מכירה");
 
                     // Get the layout inflater
                     LayoutInflater inflater = getActivity().getLayoutInflater();
@@ -157,7 +159,7 @@ public class Dag2Fragment extends Fragment {
                                     EditText description = (EditText) addDag2AdView.findViewById(R.id.details_edit_text);
                                     String descriptionText = description.getText().toString();
 
-                                    EditText price = (EditText) addDag2AdView.findViewById(R.id.price);
+                                    EditText price = (EditText) addDag2AdView.findViewById(R.id.price1);
                                     String priceText = price.getText().toString();
 
                                     GoogleSignInAccount lastUser = UserAccount.getUserAccount();
