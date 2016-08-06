@@ -141,6 +141,7 @@ public class ReportsFragment extends Fragment implements GoogleApiClient.Connect
                 }
             }
         });
+
         mRecyclerView.setAdapter(adapter);
 
 

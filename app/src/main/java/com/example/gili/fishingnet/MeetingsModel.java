@@ -7,17 +7,12 @@ public class MeetingsModel {
     public String name;
     public String location;
     public String details;
-    public String imageBString;
 
 
-    public MeetingsModel(){
-    }
-
-    public MeetingsModel(String name,String location,String details,String imageBString){
+    public MeetingsModel(String name,String location,String details){
         this.name = name;
         this.location = location;
         this.details = details;
-        this.imageBString=imageBString;
     }
 
 

@@ -86,7 +86,7 @@
             <EditText
                 android:layout_width="218dp"
                 android:layout_height="wrap_content"
-                android:id="@+id/details"/>
+                android:id="@+id/detailes"/>
 
             <TextView
                 android:layout_width="wrap_content"

@@ -10,9 +10,9 @@
         android:layout_height="wrap_content"
         android:paddingTop="25dp"
         android:id="@+id/linearLayout"
+        android:layout_marginTop="52dp"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="107dp">
+        android:layout_centerHorizontal="true">
 
 
         <LinearLayout
@@ -58,22 +58,22 @@
             android:layout_centerVertical="true"
             android:layout_gravity="right">
 
-            <Spinner
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/spinner"
-                android:entries="@array/FishingStyleArray"
-                android:layout_row="0"
-                android:layout_column="23"
-                android:layout_weight="1"
-                android:layout_centerVertical="true" />
+            <!--<Spinner-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:id="@+id/spinner"-->
+                <!--android:entries="@array/FishingStyleArray"-->
+                <!--android:layout_row="0"-->
+                <!--android:layout_column="23"-->
+                <!--android:layout_weight="1"-->
+                <!--android:layout_centerVertical="true" />-->
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="שיטת הדייג "
-                android:id="@+id/textView2"
-                android:paddingLeft="5dp" />
+            <!--<TextView-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:text="שיטת הדייג "-->
+                <!--android:id="@+id/textView2"-->
+                <!--android:paddingLeft="5dp" />-->
         </LinearLayout>
 
         <LinearLayout
@@ -97,26 +97,6 @@
         </LinearLayout>
 
     </LinearLayout>
-
-    <TextView
-        android:layout_width="150dp"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text=" מפגשי דייג"
-        android:id="@+id/textView"
-        android:layout_marginTop="46dp"
-        android:layout_alignParentTop="true"
-        android:layout_alignEnd="@+id/linearLayout" />
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="המשך"
-        android:id="@+id/btn"
-        android:layout_gravity="center_horizontal"
-        android:layout_below="@+id/linearLayout"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="50dp" />
 
 
 </RelativeLayout>

@@ -19,7 +19,7 @@
             />
 
         <EditText
-            android:id="@+id/hline_edit_text"
+            android:id="@+id/hline_edit_text2"
             android:layout_width="0dip"
             android:layout_weight=".7"
             android:layout_height="wrap_content"
