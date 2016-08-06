@@ -4,14 +4,19 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentSender;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.location.Location;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -31,6 +36,11 @@ import android.widget.Toast;
 import com.firebase.client.Firebase;
 import com.firebase.ui.FirebaseRecyclerAdapter;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.location.LocationListener;
+import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.vision.barcode.Barcode;
 
 import java.io.ByteArrayOutputStream;
@@ -41,15 +51,24 @@ import java.util.Calendar;
 /**
  * Created by Gili on 27/07/2016.
  */
-public class ReportsFragment extends Fragment {
+public class ReportsFragment extends Fragment implements GoogleApiClient.ConnectionCallbacks,
+        GoogleApiClient.OnConnectionFailedListener,
+        LocationListener {
 
     // Firebase
     Firebase mRootRef;
 
     // Data
     ArrayList<ReportModel> reports = new ArrayList<>();
-    FirebaseRecyclerAdapter<ReportModel,ReportViewHolder> adapter;
+    FirebaseRecyclerAdapter<ReportModel, ReportViewHolder> adapter;
     String selectedImageBitmapString;
+
+    //location
+    private final static int CONNECTION_FAILURE_RESOLUTION_REQUEST = 9000;
+    private GoogleApiClient mGoogleApiClient;
+    private LocationRequest mLocationRequest;
+    private double currentLatitude;
+    private double currentLongitude;
 
     // UI
     RecyclerView mRecyclerView;
@@ -70,12 +89,30 @@ public class ReportsFragment extends Fragment {
         manager.setReverseLayout(true);
         mRecyclerView.setLayoutManager(manager);
 
-        FloatingActionButton fab = (FloatingActionButton)recyclerLayout.findViewById(R.id.fab_2);
+        //location google
+        mGoogleApiClient = new GoogleApiClient.Builder(getContext())
+                // The next two lines tell the new client that “this” current class will handle connection stuff
+                .addConnectionCallbacks(this)
+                .addOnConnectionFailedListener(this)
+                //fourth line adds the LocationServices API endpoint from GooglePlayServices
+                .addApi(LocationServices.API)
+                .build();
 
-        adapter = new FirebaseRecyclerAdapter<ReportModel, ReportViewHolder>(ReportModel.class,R.layout.recycler_list_item, ReportViewHolder.class,mRootRef) {
+        // Create the LocationRequest object
+        mLocationRequest = LocationRequest.create()
+                .setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)
+                .setInterval(10 * 1000)        // 10 seconds, in milliseconds
+                .setFastestInterval(1 * 1000); // 1 second, in milliseconds
+
+        mGoogleApiClient.connect();
+
+
+        FloatingActionButton fab = (FloatingActionButton) recyclerLayout.findViewById(R.id.fab_2);
+
+        adapter = new FirebaseRecyclerAdapter<ReportModel, ReportViewHolder>(ReportModel.class, R.layout.recycler_list_item, ReportViewHolder.class, mRootRef) {
             @Override
             protected void populateViewHolder(ReportViewHolder reportViewHolder, ReportModel rm, int i) {
-                if(rm.imageBitmapString!=null) {
+                if (rm.imageBitmapString != null) {
                     byte[] decodedString = Base64.decode(rm.imageBitmapString, Base64.DEFAULT);
                     Bitmap bitmap = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
                     reportViewHolder.image.setImageBitmap(bitmap);
@@ -160,8 +197,8 @@ public class ReportsFragment extends Fragment {
                                     if (locationCheckbox.isChecked()) {
                                         //TODO: Add point
 
-                                        lat = new String("0");
-                                        lng = new String("0");
+                                        lat = new String(Double.toString(currentLatitude));
+                                        lng = new String(Double.toString(currentLongitude));
                                     }
 
                                     GoogleSignInAccount lastUser = UserAccount.getUserAccount();
@@ -184,9 +221,8 @@ public class ReportsFragment extends Fragment {
                                 }
                             });
                     builder.show();
-                }
-                else{
-                    Toast.makeText(getContext(),"Log in please",Toast.LENGTH_LONG).show();
+                } else {
+                    Toast.makeText(getContext(), "Log in please", Toast.LENGTH_LONG).show();
                 }
             }
         });
@@ -207,18 +243,18 @@ public class ReportsFragment extends Fragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        switch(flag){
+        switch (flag) {
             case (1):
                 onGalleryActivityResult(requestCode, resultCode, data);
                 break;
-            case(2):
+            case (2):
                 onCameraActivityResult(requestCode, resultCode, data);
                 break;
             default:
         }
     }
 
-    public void onGalleryActivityResult(int requestCode, int resultCode, Intent data){
+    public void onGalleryActivityResult(int requestCode, int resultCode, Intent data) {
         try {
             // When an Image is picked
             getActivity();
@@ -226,7 +262,7 @@ public class ReportsFragment extends Fragment {
                     && null != data) {
                 // Get the Image from data
                 Uri selectedImage = data.getData();
-                String[] filePathColumn = { MediaStore.Images.Media.DATA };
+                String[] filePathColumn = {MediaStore.Images.Media.DATA};
                 // Get the cursor
                 Cursor cursor = getActivity().getContentResolver().query(selectedImage,
                         filePathColumn, null, null, null);
@@ -257,7 +293,7 @@ public class ReportsFragment extends Fragment {
         }
     }
 
-    public void onCameraActivityResult(int requestCode, int resultCode, Intent data){
+    public void onCameraActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == CAMERA_REQUEST && resultCode == Activity.RESULT_OK) {
             Bitmap photo = (Bitmap) data.getExtras().get("data");
             // Encode Bitmap to String
@@ -266,6 +302,44 @@ public class ReportsFragment extends Fragment {
             photo.recycle();
             byte[] byteArray = bYtE.toByteArray();
             selectedImageBitmapString = Base64.encodeToString(byteArray, Base64.DEFAULT);
+        }
+    }
+
+    @Override
+    public void onLocationChanged(Location location) {
+        currentLatitude = location.getLatitude();
+        currentLongitude = location.getLongitude();
+
+        // Toast.makeText(this, currentLatitude + " WORKS " + currentLongitude + "", Toast.LENGTH_LONG).show();
+
+    }
+
+    @Override
+    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+   /*
+             * Google Play services can resolve some errors it detects.
+             * If the error has a resolution, try sending an Intent to
+             * start a Google Play services activity that can resolve
+             * error.
+             */
+        if (connectionResult.hasResolution()) {
+            try {
+                // Start an Activity that tries to resolve the error
+                connectionResult.startResolutionForResult(getActivity(), CONNECTION_FAILURE_RESOLUTION_REQUEST);
+                    /*
+                     * Thrown if Google Play services canceled the original
+                     * PendingIntent
+                     */
+            } catch (IntentSender.SendIntentException e) {
+                // Log the error
+                e.printStackTrace();
+            }
+        } else {
+                /*
+                 * If no resolution is available, display a dialog to the
+                 * user with the error.
+                 */
+            // Log.e("Error", "Location services connection failed with code " + connectionResult.getErrorCode());
         }
     }
 
@@ -286,4 +360,41 @@ public class ReportsFragment extends Fragment {
             time = (TextView) itemView.findViewById(R.id.card_time);
         }
     }
+
+    //location
+
+    @Override
+    public void onConnected(Bundle bundle) {
+        if (ActivityCompat.checkSelfPermission(getActivity(), android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getContext(), android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return;
+        }
+        Location location = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
+
+        if (location == null) {
+            LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, this);
+
+        } else {
+            //If everything went fine lets get latitude and longitude
+            currentLatitude = location.getLatitude();
+            currentLongitude = location.getLongitude();
+
+            //Toast.makeText(this, currentLatitude + " WORKS " + currentLongitude + "", Toast.LENGTH_LONG).show();
+        }
+    }
+
+
+    @Override
+    public void onConnectionSuspended(int i) {}
+
+
+
+
+
 }
