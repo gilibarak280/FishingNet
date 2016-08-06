@@ -1,38 +1,64 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout
+    android:id="@+id/main_content"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:layout_height="match_parent">
 
     <android.support.v7.widget.RecyclerView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/recycler_view"
-        android:layout_weight="1" />
-
-
-    <!--android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab_2"
-        android:layout_width="@dimen/fab_size"
-        android:layout_height="@dimen/fab_size"
-        android:background="@drawable/ripple"
-        android:layout_gravity="bottom"
-        android:layout_marginBottom="16dp"
-        android:layout_marginEnd="16dp"
-        android:src="@drawable/reply"
-        android:elevation="10dp" /-->
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/recycler_view"
+    android:layout_weight="1" />
 
     <android.support.design.widget.FloatingActionButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/fab_2"
+        android:layout_gravity="bottom|right"
+        android:layout_margin="16dp"
         android:src="@drawable/ic_add_white_18dp"
-        android:layout_gravity="bottom"
-        android:layout_marginBottom="16dp"
-        android:layout_marginEnd="16dp"
-        app:borderWidth="0dp"
-        app:fabSize="normal"
-        android:onClick="submit"
-        app:rippleColor="@color/PrimaryDarkColor"/>
+        app:layout_anchor="@id/recycler_view"
+        app:layout_anchorGravity="bottom|right|end" />
 
-</LinearLayout>
+</android.support.design.widget.CoordinatorLayout>
+
+<!--<?xml version="1.0" encoding="utf-8"?>-->
+
+<!--<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent"-->
+    <!--xmlns:app="http://schemas.android.com/apk/res-auto">-->
+
+    <!--<android.support.v7.widget.RecyclerView-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:id="@+id/recycler_view"-->
+        <!--android:layout_weight="1" />-->
+
+
+    <!--&lt;!&ndash;android.support.design.widget.FloatingActionButton-->
+        <!--android:id="@+id/fab_2"-->
+        <!--android:layout_width="@dimen/fab_size"-->
+        <!--android:layout_height="@dimen/fab_size"-->
+        <!--android:background="@drawable/ripple"-->
+        <!--android:layout_gravity="bottom"-->
+        <!--android:layout_marginBottom="16dp"-->
+        <!--android:layout_marginEnd="16dp"-->
+        <!--android:src="@drawable/reply"-->
+        <!--android:elevation="10dp" /&ndash;&gt;-->
+
+    <!--<android.support.design.widget.FloatingActionButton-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:id="@+id/fab_2"-->
+        <!--android:src="@drawable/ic_add_white_18dp"-->
+        <!--android:layout_gravity="bottom"-->
+        <!--android:layout_marginBottom="16dp"-->
+        <!--android:layout_marginEnd="16dp"-->
+        <!--app:borderWidth="0dp"-->
+        <!--app:fabSize="normal"-->
+        <!--android:onClick="submit"-->
+        <!--app:rippleColor="@color/PrimaryDarkColor"/>-->
+
+<!--</LinearLayout>-->

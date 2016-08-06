@@ -14,6 +14,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
@@ -80,7 +81,7 @@ public class ReportsFragment extends Fragment implements GoogleApiClient.Connect
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        LinearLayout recyclerLayout = (LinearLayout) inflater.inflate(R.layout.fragment_recycler, container, false);
+        CoordinatorLayout recyclerLayout = (CoordinatorLayout) inflater.inflate(R.layout.fragment_recycler, container, false);
 
         mRootRef = new Firebase("https://fishingnet-dd809.firebaseio.com/reports");
         mRecyclerView = (RecyclerView) recyclerLayout.findViewById(R.id.recycler_view);
