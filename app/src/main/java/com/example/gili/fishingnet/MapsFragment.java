@@ -62,13 +62,11 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
 
                 //rm.headline
                 //rm.description
-
-                LatLng location = new LatLng(Double.parseDouble(reportm.lat),Double.parseDouble(reportm.lng));
-                mMap.addMarker(new MarkerOptions().position(location).title(reportm.headline));
-                //mMap.moveCamera(CameraUpdateFactory.newLatLng(location));
-
-
-
+                if (reportm.lat!=null && reportm.lng!=null) {
+                    LatLng location = new LatLng(Double.parseDouble(reportm.lat), Double.parseDouble(reportm.lng));
+                    mMap.addMarker(new MarkerOptions().position(location).title(reportm.headline));
+                    //mMap.moveCamera(CameraUpdateFactory.newLatLng(location));
+                }
             }
 
             @Override

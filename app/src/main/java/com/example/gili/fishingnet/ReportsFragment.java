@@ -19,6 +19,7 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -150,10 +151,13 @@ public class ReportsFragment extends Fragment {
                                 EditText description = (EditText) addReportView.findViewById(R.id.description_edit_text);
                                 String descriptionText = description.getText().toString();
 
-                                //if(location is disable)
-                                String lat = new String("0");
-                                String lng = new String("0");
-                                //else
+                                CheckBox locationCheckbox = (CheckBox) addReportView.findViewById(R.id.location_checbox);
+                                String lat = null;
+                                String lng = null;
+                                if(locationCheckbox.isChecked()) {
+                                    lat = new String("0");
+                                    lng = new String("0");
+                                }
 
                                 ReportModel report = new ReportModel(selectedImageBitmapString, headlineText,descriptionText,lat,lng);
                                 reports.add(report);
