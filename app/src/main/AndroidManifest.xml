@@ -21,7 +21,7 @@
     <application
         android:name=".FishingNetwork"
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/abcdefg"
         android:label="FishingNet "
         android:supportsRtl="true"
         android:theme="@style/AppTheme">

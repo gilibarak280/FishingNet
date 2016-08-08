@@ -56,7 +56,8 @@
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:text="Large Text"
                 android:id="@+id/card_location1"
-                android:layout_alignParentTop="true" />
+                android:layout_below="@+id/card_details1"
+                android:layout_toEndOf="@+id/card_details1" />
 
             <TextView
                 android:paddingLeft="10dp"

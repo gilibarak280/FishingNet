@@ -2,16 +2,13 @@ package com.example.gili.fishingnet;
 
 import android.content.Intent;
 import android.support.design.widget.TabLayout;
-import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.firebase.client.Firebase;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -96,6 +93,7 @@ public class MainActivity extends AppCompatActivity {
 
         tabLayout.setTabTextColors(ContextCompat.getColorStateList(this, R.drawable.tab_selector));
         tabLayout.setSelectedTabIndicatorColor(ContextCompat.getColor(this, R.color.indicator));
+
 
         /*
         Adding an onPageChangeListener to the viewPager
