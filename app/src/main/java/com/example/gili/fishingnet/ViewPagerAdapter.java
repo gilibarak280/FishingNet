@@ -22,11 +22,10 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter {
             case(1):
                 return new ReportsFragment();
             case(2):
-                //return new MeetingsFragment();
-                break;
+                return new MeetingsFragment();
             case(3):
                 return new Dag2Fragment();
-            case(5):
+            case(4):
                 return new MapsFragment();
                 //return new WeatherFragment();
 //            case (6):
@@ -38,7 +37,7 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter {
             default:
                 return new TabFragment();
         }
-        return new TabFragment();
+        //return new TabFragment();
         // Which Fragment should be dislpayed by the viewpager for the given position
         // In my case we are showing up only one fragment in all the three tabs so we are
         // not worrying about the position and just returning the TabFragment
@@ -46,7 +45,7 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public int getCount() {
-        return 6;       // As there are only 6 Tabs
+        return 5;       // As there are only 5 Tabs
     }
 
 }

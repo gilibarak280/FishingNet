@@ -81,11 +81,11 @@ public class MainActivity extends AppCompatActivity {
         tabLayout.addTab(reports, 1);
         tabLayout.addTab(meetings, 2);
         tabLayout.addTab(dag2, 3);
-        tabLayout.addTab(chat, 4);
+        //tabLayout.addTab(chat, 4);
         //tabLayout.addTab(weather,5);
         //tabLayout.addTab(list,6);
         //tabLayout.addTab(recycler,7);
-        tabLayout.addTab(maps,5);
+        tabLayout.addTab(maps,4);
 
         /*
         TabTextColor sets the color for the title of the tabs, passing a ColorStateList here makes
