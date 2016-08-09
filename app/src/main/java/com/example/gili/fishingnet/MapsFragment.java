@@ -1,30 +1,22 @@
 package com.example.gili.fishingnet;
 
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
+
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
-import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.FrameLayout;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import com.firebase.client.ChildEventListener;
 import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
-import com.firebase.client.ValueEventListener;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 public class MapsFragment extends Fragment implements OnMapReadyCallback {
@@ -34,7 +26,8 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
     Firebase mRef;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
+    {
 
         FrameLayout mapLayout = (FrameLayout) inflater.inflate(R.layout.maps_fragment, container, false);
 
@@ -54,7 +47,8 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
 
         mRef.addChildEventListener(new ChildEventListener() {
             @Override
-            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+            public void onChildAdded(DataSnapshot dataSnapshot, String s)
+            {
 
                 ReportModel reportm = dataSnapshot.getValue(ReportModel.class);
 //                Log.v("E_CHILD_ADDED", message);
@@ -63,7 +57,8 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
 
                 //rm.headline
                 //rm.description
-                if (reportm.lat!=null && reportm.lng!=null) {
+                if (reportm.lat!=null && reportm.lng!=null)
+                {
                     LatLng location = new LatLng(Double.parseDouble(reportm.lat), Double.parseDouble(reportm.lng));
                     //Marker marker = new MarkerOptions().position(location).title(reportm.headline).snippet(reportm.description)
                     mMap.addMarker(new MarkerOptions().position(location).title(reportm.headline).snippet(reportm.description));

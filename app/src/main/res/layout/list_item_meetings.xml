@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <android.support.v7.widget.CardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
@@ -14,6 +15,7 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="#FFFFF3"
         >
 
         <LinearLayout
@@ -27,8 +29,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceSmall"
-                android:text="Small Text"
-                android:id="@+id/card_name1"
+                android:text="err"
+                android:id="@+id/card_name9"
                 android:layout_weight="1"
                 android:layout_alignParentTop="true" />
 
@@ -37,9 +39,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceSmall"
-                android:text="Small Text"
-                android:id="@+id/card_time1"
+                android:text="err"
+                android:id="@+id/card_curr_time"
                 android:layout_weight="1"
+                android:background="#FFFFF3"
                 android:layout_alignParentTop="true" />
 
         </LinearLayout>
@@ -54,18 +57,31 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="Large Text"
-                android:id="@+id/card_location1"
-                android:layout_below="@+id/card_details1"
-                android:layout_toEndOf="@+id/card_details1" />
+                android:text="err"
+                android:id="@+id/card_location9"
+                android:layout_alignParentTop="true"
+                android:gravity="center"
+                android:paddingBottom="20dp" />
 
             <TextView
                 android:paddingLeft="10dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Large Text"
-                android:id="@+id/card_details1"
-                android:layout_below="@+id/card_headline" />
+                android:text=" err"
+                android:id="@+id/card_time9"
+                android:layout_below="@+id/card_location9"
+                android:layout_alignStart="@+id/card_location9"
+                android:paddingBottom="20dp" />
+
+            <TextView
+                android:paddingLeft="20dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=" err"
+                android:id="@+id/card_details9"
+                android:layout_centerVertical="true"
+                android:layout_alignStart="@+id/card_time"
+                android:paddingBottom="20dp" />
 
         </RelativeLayout>
 

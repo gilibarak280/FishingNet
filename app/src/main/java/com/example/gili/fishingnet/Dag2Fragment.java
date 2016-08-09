@@ -2,40 +2,31 @@ package com.example.gili.fishingnet;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Base64;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.firebase.client.Firebase;
 import com.firebase.ui.FirebaseRecyclerAdapter;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
-import com.google.android.gms.vision.barcode.Barcode;
-
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.util.ArrayList;
@@ -192,6 +183,7 @@ public class Dag2Fragment extends Fragment {
         //adapter.notifyDataSetChanged();
 
         return recyclerLayout;
+
     }
 
     public void loadImageFromGallery() {
@@ -286,4 +278,5 @@ public class Dag2Fragment extends Fragment {
             time = (TextView)itemView.findViewById(R.id.card_ad_time);
         }
     }
+
 }

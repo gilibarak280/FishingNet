@@ -1,22 +1,28 @@
 package com.example.gili.fishingnet;
 
+
 /**
- * Created by Almog on 04/08/2016.
+ * Created by Gili on 27/07/2016.
  */
 public class MeetingsModel {
 
+    public String Location;
+    public String Date;
+    public String detils;
     public String name;
-    public String location;
-    public String details;
+    public String time;
 
-    public MeetingsModel(String name,String location,String details){
-        this.name = name;
-        this.location = location;
-        this.details = details;
-    }
 
     public MeetingsModel(){
+    }
+
+    public MeetingsModel(String Location,String Date,String detils,String name,String time)
+    {
+        this.Location = Location;
+        this.Date=Date;
+        this.detils=detils;
+        this.name=name;
+        this.time=time;
 
     }
 }
-

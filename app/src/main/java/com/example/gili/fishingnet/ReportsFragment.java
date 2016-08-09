@@ -16,21 +16,18 @@ import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Base64;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -42,7 +39,6 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.vision.barcode.Barcode;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -84,7 +80,7 @@ public class ReportsFragment extends Fragment implements GoogleApiClient.Connect
         CoordinatorLayout recyclerLayout = (CoordinatorLayout) inflater.inflate(R.layout.fragment_recycler, container, false);
 
         mRootRef = new Firebase("https://fishingnet-dd809.firebaseio.com/reports");
-        mRecyclerView = (RecyclerView) recyclerLayout.findViewById(R.id.recycler_view);
+                mRecyclerView = (RecyclerView) recyclerLayout.findViewById(R.id.recycler_view);
         mRecyclerView.setHasFixedSize(true);
         final LinearLayoutManager manager = new LinearLayoutManager(getContext());
         manager.setReverseLayout(true);
@@ -106,7 +102,6 @@ public class ReportsFragment extends Fragment implements GoogleApiClient.Connect
                 .setFastestInterval(1 * 1000); // 1 second, in milliseconds
 
         mGoogleApiClient.connect();
-
 
         FloatingActionButton fab = (FloatingActionButton) recyclerLayout.findViewById(R.id.fab_2);
 
@@ -256,6 +251,7 @@ public class ReportsFragment extends Fragment implements GoogleApiClient.Connect
         }
     }
 
+
     public void onGalleryActivityResult(int requestCode, int resultCode, Intent data) {
         try {
             // When an Image is picked
@@ -395,8 +391,30 @@ public class ReportsFragment extends Fragment implements GoogleApiClient.Connect
     @Override
     public void onConnectionSuspended(int i) {}
 
+//public void removeItemByUser()
+//{
 
 
+//    GoogleSignInAccount lastUser = UserAccount.getUserAccount();
+//    String Gname = lastUser.getDisplayName(); // to compare
+//
+//    Firebase listOfObjects = mRootRef.orderByChild("name").endAt(Gname).getRef();
+
+    //filter just the entries you need
+
+//
+//    listOfObjects.addListenerForSingleValueEvent(new ValueEventListener()
+//    {
+//        @Override
+//        public void onDataChange(DataSnapshot querySnapshot) {
+//            queurySnapshot.getRef().removeValue();
+//        }
+//    }
+//
+//    mRootRef.child("-KO_E5hDmB3kzwzXWnfH").removeValue();  // remove object when you know its name
+//
+//
+////}
 
 
 }

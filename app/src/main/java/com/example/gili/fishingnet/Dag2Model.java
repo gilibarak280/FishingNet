@@ -1,6 +1,5 @@
 package com.example.gili.fishingnet;
 
-import android.media.Image;
 
 /**
  * Created by Gili on 27/07/2016.
