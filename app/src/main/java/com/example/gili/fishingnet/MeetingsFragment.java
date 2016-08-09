@@ -13,6 +13,7 @@ import android.provider.MediaStore;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Base64;
@@ -39,6 +40,7 @@ public class MeetingsFragment extends Fragment {
 
     // Firebase
     Firebase mRootRef;
+
 
     // Data
     ArrayList<MeetingsModel> Meetings = new ArrayList<>();
@@ -119,7 +121,7 @@ public class MeetingsFragment extends Fragment {
                     // Pass null as the parent view because its going in the dialog layout
                     builder.setView(addMeetingView)
                             // Set up the buttons
-                            .setPositiveButton("OK", new DialogInterface.OnClickListener()
+                            .setPositiveButton("שלח", new DialogInterface.OnClickListener()
                             {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
@@ -145,7 +147,7 @@ public class MeetingsFragment extends Fragment {
                                     adapter.notifyDataSetChanged();
                                 }
                             })
-                            .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                            .setNegativeButton("ביטול", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
                                     dialog.cancel();

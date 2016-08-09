@@ -2,20 +2,66 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.gili.fishingnet">
 
+    <!--int permissionCheck = ContextCompat.checkSelfPermission(ReportsFragment, Manifest.permission.CAMERA);-->
+
+    <!--if (ContextCompat.checkSelfPermission(ReportsFragment,Manifest.permission.READ_CONTACTS)!= PackageManager.PERMISSION_GRANTED)-->
+    <!--{-->
+        <!--if (ActivityCompat.shouldShowRequestPerReportsFragmentmissionRationale(ReportsFragment,Manifest.permission.CAMERA))-->
+        <!--{-->
+
+    <!--// Show an expanation to the user *asynchronously* &#45;&#45; don't block-->
+    <!--// this thread waiting for the user's response! After the user-->
+    <!--// sees the explanation, try again to request the permission.-->
+    <!--}-->
+    <!--else-->
+    <!--{-->
+
+    <!--// No explanation needed, we can request the permission.-->
+
+    <!--ActivityCompat.requestPermissions(ReportsFragment,new String[]{Manifest.permission.CAMERA},5);-->
+
+    <!--// MY_PERMISSIONS_REQUEST_READ_CONTACTS is an-->
+    <!--// app-defined int constant. The callback method gets the-->
+    <!--// result of the request.-->
+        <!--}-->
+    <!--}-->
+
+    <!--@Override-->
+    <!--public void onRequestPermissionsResult(int requestCode,-->
+    <!--String permissions[], int[] grantResults) {-->
+    <!--switch (requestCode) {-->
+    <!--case MY_PERMISSIONS_REQUEST_READ_CONTACTS: {-->
+    <!--// If request is cancelled, the result arrays are empty.-->
+    <!--if (grantResults.length > 0-->
+     <!--grantResults[0] == PackageManager.PERMISSION_GRANTED) {-->
+
+    <!--// permission was granted, yay! Do the-->
+    <!--// contacts-related task you need to do.-->
+
+    <!--} else {-->
+
+    <!--// permission denied, boo! Disable the-->
+    <!--// functionality that depends on this permission.-->
+    <!--}-->
+    <!--return;-->
+    <!--}-->
+
+    <!--// other 'case' lines to check for other-->
+    <!--// permissions this app might request-->
+    <!--}-->
+    <!--}-->
+
+
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.CAMERA" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
-    <uses-feature
-        android:name="android.hardware.camera"
-        android:required="true" />
 
-    <!--
-         The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
-         Google Maps Android API v2, but you must specify either coarse or fine
-         location permissions for the 'MyLocation' functionality. 
-    -->
+
+    <uses-feature android:name="android.hardware.camera" />
+    <uses-feature android:name="android.hardware.camera.autofocus" />
+
 
 
     <application

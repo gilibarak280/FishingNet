@@ -69,6 +69,7 @@ public class MainActivity extends AppCompatActivity {
         recycler.setText("recycler");
         maps.setText("Maps");
 
+
         /*
         Adding the tab view to our tablayout at appropriate positions
         As I want home at first position I am passing home and 0 as argument to
@@ -83,6 +84,7 @@ public class MainActivity extends AppCompatActivity {
         //tabLayout.addTab(list,6);
         //tabLayout.addTab(recycler,7);
         tabLayout.addTab(maps,4);
+        //tabLayout.setSelectedTabIndicatorColor(4);
 
         /*
         TabTextColor sets the color for the title of the tabs, passing a ColorStateList here makes

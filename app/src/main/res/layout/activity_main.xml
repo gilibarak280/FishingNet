@@ -8,20 +8,25 @@
     tools:context=".MainActivity">
 
 
+
     <!--include
         android:id="@+id/tool_bar"
         layout="@layout/tool_bar"/-->
 
     <android.support.design.widget.TabLayout
         android:id="@+id/tabs"
+        android:background="#30b8cf"
+
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/PrimaryColor"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        app:tabMode="scrollable"/>
+        app:tabMode="scrollable"
+        android:fillViewport="false" />
 
     <android.support.v4.view.ViewPager
+        android:background="#d1f9ff"
+
         android:id="@+id/viewpager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -29,3 +34,5 @@
         />
 
 </RelativeLayout>
+
+

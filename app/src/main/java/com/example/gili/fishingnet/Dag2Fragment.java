@@ -141,7 +141,7 @@ public class Dag2Fragment extends Fragment {
                     // Pass null as the parent view because its going in the dialog layout
                     builder.setView(addDag2AdView)
                             // Set up the buttons
-                            .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                            .setPositiveButton("שלח", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
                                     EditText headline = (EditText) addDag2AdView.findViewById(R.id.hline_edit_text2);
@@ -166,7 +166,7 @@ public class Dag2Fragment extends Fragment {
                                     adapter.notifyDataSetChanged();
                                 }
                             })
-                            .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                            .setNegativeButton("ביטול", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
                                     dialog.cancel();
